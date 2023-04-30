@@ -16,7 +16,8 @@ public class PostController
 {
     @Autowired
    private ServerRepository serverRepository;
-
+    
+    // GET all servers or a single server by id
     @GetMapping
     public List<Server> getServers(@RequestParam(required = false) String id) {
         if (id == null) {
@@ -25,23 +26,27 @@ public class PostController
             return serverRepository.findById(id).map(Collections::singletonList).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         }
     }
-    @PostMapping("/servers")
+    
+    // PUT a server
+    @PostMapping
     public Server addServer(@RequestBody Server server)
     {
         return serverRepository.save(server);
     }
 
-
+    // Create a server
     @PutMapping
     public void createServer(@RequestBody Server server) {
         serverRepository.save(server);
     }
 
+    // DELETE a server
     @DeleteMapping({"/{id}"})
     public void deleteServer(@PathVariable String id) {
         serverRepository.deleteById(id);
     }
 
+    // GET servers by name
     @GetMapping(params = "name")
     public List<Server> findServersByName(@RequestParam String name) {
         List<Server> servers = serverRepository.findByNameContaining(name);
