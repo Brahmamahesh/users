@@ -2,7 +2,7 @@ package com.kaiburrtask1.users.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Users")
+@Document(collection = "Testtask1")
 public class Server
 {
     private String id;
